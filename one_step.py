@@ -21,17 +21,25 @@ def next_guide_cosines(parameters, previous_guide_cosines):
     sinPhi = math.sin(phi)
     cosPhi = math.cos(phi)
 
-    cosTeta = 1 - 2 * random.random
+    cosTeta = 1 - 2 * random.random()
+
     pgc = previous_guide_cosines
-    uglyRoot = math.sqrt(
-        (1 - cosTeta**2) /
-        (1 - pgc.c**2)
-    )
-    
-    if pgc.c != 1 :
+    if math.fabs(pgc.c) != 1 :
+
+        # try:
+        #     uglyRoot = math.sqrt(
+        #     (1 - cosTeta**2) /
+        #     (1 - pgc.c**2))
+        # except Exception:
+        #     print(f"cosTeta = {cosTeta}, pgc.c = {pgc.c}")
+
+        uglyRoot = math.sqrt(
+            (1 - cosTeta**2) /
+            (1 - pgc.c**2))
+
         a = cosTeta * pgc.a - (pgc.b * sinPhi - pgc.a * pgc.b * cosPhi) * uglyRoot
         b = cosTeta * pgc.b + (pgc.a * sinPhi + pgc.b * pgc.c * cosPhi) * uglyRoot
-        c = cosTeta - (1 - pgc.c**2) * cosPhi * uglyRoot
+        c = cosTeta * pgc.c - (1 - pgc.c**2) * cosPhi * uglyRoot
     else:
         sinTeta = math.sqrt(1 - cosTeta**2) #по рисунку b Teta меняется от 0 до 2*пи
         a = sinTeta * cosPhi

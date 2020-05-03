@@ -15,3 +15,6 @@ class PosAndTime(object):
 
 from collections import namedtuple
 GuideCosines = namedtuple("GuideCosines", "a b c")
+
+class Empty(object): #Здесь будут храниться параметры, например, длина свободного пробега
+    pass
