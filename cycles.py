@@ -42,7 +42,7 @@ def meanDistance(arar, time_limit): #Возвращает массив t и ма
 
 import numpy
 from math import fabs
-def xyDistribution(arar, t):
+def xyDistribution(arar, t, Ndots):
     #print(arar[2][2].x)
     ra = list(map(lambda ar : getBetween(ar, t), arar))
     #print(len(ra))
@@ -50,7 +50,7 @@ def xyDistribution(arar, t):
     minv = min(map(lambda obj : min(obj.x, obj.y), ra))
     #print(ra[1].x)
     #print(list(map(lambda obj : max(obj.x, obj.y), ra)))
-    Ndots = 50
+    #Ndots = 50
     cs = numpy.linspace(minv, maxv, Ndots)
     dx = dy = (cs[1] - cs[0]) / 2
 
