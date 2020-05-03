@@ -1,3 +1,5 @@
+# В этом файле - аналитические решения
+
 D6 = 0
 
 def setParameters(parameters):

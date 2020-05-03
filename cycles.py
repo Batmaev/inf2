@@ -1,4 +1,6 @@
-import classes
+# В этом файле функции с циклами, хех.
+# Они собственно моделируют - получают массив точек 
+# и обрабатывают его - считают среднее удаление от центра
 from one_step import abstract_delta, next_guide_cosines
 
 def simulate_one_particle(parameters, start_position, start_guide_cosines, time_limit):

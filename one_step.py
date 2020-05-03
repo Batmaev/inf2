@@ -1,9 +1,12 @@
+# В этом файле - функции, которые позволяют смоделировать одно столкновение
+
 import math
 import random
 import classes
 
 def abstract_delta(parameters, guide_cosines):
     l = random.expovariate(1/parameters.lmbda)
+    #l = - parameters.lmbda * math.log(1 - random.random())
     gc = guide_cosines
 
     delta = classes.PosAndTime()

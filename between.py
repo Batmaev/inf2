@@ -1,3 +1,9 @@
+# В этом файле - функция getBetween, которая позволяет 
+# получить координаты в произвольный момент времени. 
+# В массиве, который выдаёт cycles.simulate_one_particle,
+# есть только узловые точки - те, в которых направление 
+# скорости изменилось в результате столкновения 
+
 def getBetween(ar, t):
     pre, nex = search(ar, t)
     return interpolate(pre, nex, t)
@@ -16,11 +22,11 @@ def search(ar, t):
     
 
 
-import classes
+from classes import PosAndTime
 def interpolate(pre, nex, t):
     def lin(v1, v2, t1, t2, t):
         return v1 + (v2 - v1) / (t2 - t1) * (t - t1)
-    res = classes.PosAndTime()
+    res = PosAndTime()
     res.x = lin(pre.x, nex.x, pre.t, nex.t, t)
     res.x = lin(pre.y, nex.y, pre.t, nex.t, t)
     res.z = lin(pre.z, nex.z, pre.t, nex.t, t)
