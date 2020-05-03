@@ -9,16 +9,32 @@ def getBetween(ar, t):
     return interpolate(pre, nex, t)
 
 def search(ar, t):
-    pre = ar[0]
+    #Идея в том, что если вызываю эту функцию на одном массиве снова 
+    # и снова, то не обязательно начинать перебирать с начала
+    i = 0
+
+    if ar == search.prevArray:
+        if ar[search.prevResult].t <= t:
+            i = search.prevResult
+    else:
+        search.prevArray = ar
+
+    pre = ar[i]
+
     if pre.t <= t:
-        for cur in ar:
+        for j in range(i, len(ar)):
+            cur = ar[j]
             if(cur.t > t):
+                search.prevResult = j - 1
                 return (pre, cur)
             pre = cur
-        #print(f"search(t): t = {t} слишком большое")
+        print(f"search(t): t = {t} слишком большое")
         return (ar[-2], ar[-1])
     print(f"search(t): t = {t} слишком маленькое")
     return (ar[0], ar[1])
+
+search.prevArray = False
+search.prevResult = 0
     
 
 
