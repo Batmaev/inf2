@@ -40,5 +40,36 @@ def meanDistance(arar, time_limit): #Возвращает массив t и ма
             mar[i] += dar[i] / Nparticles
     return (tar, mar)
 
+import numpy
+from math import fabs
+def xyDistribution(arar, t):
+    #print(arar[2][2].x)
+    ra = list(map(lambda ar : getBetween(ar, t), arar))
+    #print(len(ra))
+    maxv = max(map(lambda obj : max(obj.x, obj.y), ra))
+    minv = min(map(lambda obj : min(obj.x, obj.y), ra))
+    #print(ra[1].x)
+    #print(list(map(lambda obj : max(obj.x, obj.y), ra)))
+    Ndots = 50
+    cs = numpy.linspace(minv, maxv, Ndots)
+    dx = dy = (cs[1] - cs[0]) / 2
+
+    def countNear(x, y_filtered):
+        return len(list(filter(lambda obj: fabs(obj.x - x) < dx, y_filtered)))
+    def filterNear(y):
+        return list(filter(lambda obj: fabs(obj.y - y) < dy, ra))
+
+    #p = [[countNear(x, y) for x in cs] for y in cs]
+    p = numpy.zeros((Ndots, Ndots))
+    for y in range (Ndots):
+        y_filtered = filterNear(cs[y])
+        for x in range(Ndots):
+            p[y][x] = countNear(cs[x], y_filtered)
+
+    xss, yss = numpy.meshgrid(cs, cs)
+
+    return (xss, yss, p)
+
+
 
 

@@ -1,3 +1,4 @@
+from math import sqrt
 class PosAndTime(object):
     x = 0
     y = 0
@@ -11,7 +12,7 @@ class PosAndTime(object):
         newPosAndTime.t = self.t + delta.t 
         return newPosAndTime
     def distance(self):
-        return (self.x**2 + self.y**2 + self.z**2)**0.5
+        return sqrt((self.x**2 + self.y**2 + self.z**2))
 
 from collections import namedtuple
 GuideCosines = namedtuple("GuideCosines", "a b c")
