@@ -28,7 +28,7 @@ def interpolate(pre, nex, t):
         return v1 + (v2 - v1) / (t2 - t1) * (t - t1)
     res = PosAndTime()
     res.x = lin(pre.x, nex.x, pre.t, nex.t, t)
-    res.x = lin(pre.y, nex.y, pre.t, nex.t, t)
+    res.y = lin(pre.y, nex.y, pre.t, nex.t, t)
     res.z = lin(pre.z, nex.z, pre.t, nex.t, t)
     res.t = t
     return res

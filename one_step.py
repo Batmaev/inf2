@@ -29,14 +29,7 @@ previous_guide_cosines):
 
     pgc = previous_guide_cosines
     if math.fabs(pgc.c) < 0.99 :
-
-        # try:
-        #     uglyRoot = math.sqrt(
-        #     (1 - cosTeta**2) /
-        #     (1 - pgc.c**2))
-        # except Exception:
-        #     print(f"cosTeta = {cosTeta}, pgc.c = {pgc.c}")
-
+        
         uglyRoot = math.sqrt(
             (1 - cosTeta**2) /
             (1 - pgc.c**2))
@@ -49,6 +42,7 @@ previous_guide_cosines):
         if(math.fabs(ss - 1) > 0.05):
             print(pgc)
             print(f"cosTeta = {cosTeta}, phi = {phi}")
+            print(f"next: a={a}, b={b}, c={c}")
             return False
 
     else:
