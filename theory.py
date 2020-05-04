@@ -14,3 +14,6 @@ def probabilityDensity(cs, t):
     return numpy.array([
         [1 / (4 * math.pi * D * t) * math.exp(-(x**2 + y**2)/4/D/t) for x in cs]
          for y in cs])
+
+def x2(t):
+    return 2 * D * t

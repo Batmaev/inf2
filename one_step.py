@@ -18,14 +18,13 @@ def abstract_delta(parameters, guide_cosines):
     return delta
 
 
-def next_guide_cosines(parameters, 
-previous_guide_cosines):
+def next_guide_cosines(parameters, previous_guide_cosines):
     
     phi = 2 * math.pi * random.random()
     sinPhi = math.sin(phi)
     cosPhi = math.cos(phi)
 
-    cosTeta = 1 - 2 * random.random()
+    cosTeta = parameters.sigma()
 
     pgc = previous_guide_cosines
     if math.fabs(pgc.c) < 0.99 :
@@ -55,9 +54,12 @@ previous_guide_cosines):
 
 if __name__ == "__main__":
         s1 = classes.GuideCosines(0.5, 0.5, 0.705)
+        parameters = classes.Empty
+        import sigma
+        parameters.sigma = sigma.const
         while(True):
             s2 = s1
-            s2 = next_guide_cosines(s1)
+            s2 = next_guide_cosines(parameters, s1)
             ss = s2.a**2 + s2.b**2 + s2.c**2
             if(math.fabs(ss - 1) > 0.05):
                 print(s1)

@@ -25,7 +25,7 @@ def simulate_multiple_particles(parameters, Nparticles, start_position, start_gu
 import numpy
 from between import getBetween
 
-def meanDistance(arar, time_limit): #Возвращает массив t и массив средних distances
+def mean(arar, time_limit, what): #Возвращает массив t и массив средних distances
     Nsteps = 50
     Nparticles = len(arar)
 
@@ -33,7 +33,7 @@ def meanDistance(arar, time_limit): #Возвращает массив t и ма
 
     dars = []
     for ar in arar:
-        dars.append([getBetween(ar, t).distance() for t in tar])
+        dars.append([what(getBetween(ar, t)) for t in tar])
     
     mar = []
     for i in range(Nsteps):
@@ -46,6 +46,7 @@ from math import fabs
 
 def xyDistribution(arar, t, Ndots):
     ra = [getBetween(ar, t) for ar in arar]
+    Nparticles = len(ra)
 
     maxv = max([max(obj.x, obj.y) for obj in ra])
     minv = min([min(obj.x, obj.y) for obj in ra])
@@ -62,7 +63,7 @@ def xyDistribution(arar, t, Ndots):
     for y in range (Ndots):
         y_filtered = filterNear(cs[y])
         for x in range(Ndots):
-            p[y][x] = countNear(cs[x], y_filtered)
+            p[y][x] = countNear(cs[x], y_filtered) / (4*dx*dy) / Nparticles
 
     return (cs, p)
 
