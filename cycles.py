@@ -22,16 +22,20 @@ def simulate_multiple_particles(parameters, Nparticles, start_position, start_gu
         arar.append(simulate_one_particle(parameters, start_position, start_guide_cosines, time_limit))
     return arar
 
+import numpy
 from between import getBetween
-def meanDistance(arar, time_limit): #Возвращает массив t и массив средних distances
-    Nsteps = 500
-    Nparticles = len(arar)
-    dt = time_limit / Nsteps
 
-    tar = list(map(lambda n : n * dt, range(Nsteps)))
+def meanDistance(arar, time_limit): #Возвращает массив t и массив средних distances
+    Nsteps = 50
+    Nparticles = len(arar)
+
+    #dt = time_limit / Nsteps
+    #tar = [n * dt for n in range(Nsteps)]
+    tar = numpy.linspace(0, time_limit, Nsteps)
+
     dars = []
     for ar in arar:
-        dars.append(list(map(lambda t : getBetween(ar, t).distance(), tar)))
+        dars.append([getBetween(ar, t).distance() for t in tar])
     
     mar = []
     for i in range(Nsteps):
@@ -40,24 +44,20 @@ def meanDistance(arar, time_limit): #Возвращает массив t и ма
             mar[i] += dar[i] / Nparticles
     return (tar, mar)
 
-import numpy
 from math import fabs
+
 def xyDistribution(arar, t, Ndots):
-    #print(arar[2][2].x)
-    ra = list(map(lambda ar : getBetween(ar, t), arar))
-    #print(len(ra))
-    maxv = max(map(lambda obj : max(obj.x, obj.y), ra))
-    minv = min(map(lambda obj : min(obj.x, obj.y), ra))
-    #print(ra[1].x)
-    #print(list(map(lambda obj : max(obj.x, obj.y), ra)))
-    #Ndots = 50
+    ra = [getBetween(ar, t) for ar in arar]
+
+    maxv = max([max(obj.x, obj.y) for obj in ra])
+    minv = min([min(obj.x, obj.y) for obj in ra])
     cs = numpy.linspace(minv, maxv, Ndots)
     dx = dy = (cs[1] - cs[0]) / 2
 
     def countNear(x, y_filtered):
-        return len(list(filter(lambda obj: fabs(obj.x - x) < dx, y_filtered)))
+        return len([obj for obj in y_filtered if fabs(obj.x - x) < dx])
     def filterNear(y):
-        return list(filter(lambda obj: fabs(obj.y - y) < dy, ra))
+        return [obj for obj in ra if fabs(obj.y - y) < dy]
 
     #p = [[countNear(x, y) for x in cs] for y in cs]
     p = numpy.zeros((Ndots, Ndots))
