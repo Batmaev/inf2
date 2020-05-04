@@ -29,8 +29,6 @@ def meanDistance(arar, time_limit): #Возвращает массив t и ма
     Nsteps = 50
     Nparticles = len(arar)
 
-    #dt = time_limit / Nsteps
-    #tar = [n * dt for n in range(Nsteps)]
     tar = numpy.linspace(0, time_limit, Nsteps)
 
     dars = []
@@ -66,9 +64,7 @@ def xyDistribution(arar, t, Ndots):
         for x in range(Ndots):
             p[y][x] = countNear(cs[x], y_filtered)
 
-    xss, yss = numpy.meshgrid(cs, cs)
-
-    return (xss, yss, p)
+    return (cs, p)
 
 
 
